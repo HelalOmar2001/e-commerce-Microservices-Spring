@@ -6,6 +6,8 @@ import com.helal.ecommerce.kafka.OrderConfirmation;
 import com.helal.ecommerce.kafka.OrderProducer;
 import com.helal.ecommerce.orderline.OrderLineRequest;
 import com.helal.ecommerce.orderline.OrderLineService;
+import com.helal.ecommerce.payment.PaymentClient;
+import com.helal.ecommerce.payment.PaymentRequest;
 import com.helal.ecommerce.product.ProductClient;
 import com.helal.ecommerce.product.PurchaseRequest;
 import jakarta.persistence.EntityNotFoundException;
@@ -25,6 +27,7 @@ public class OrderService {
     private final OrderMapper mapper;
     private final OrderLineService orderLineService;
     private final OrderProducer orderProducer;
+    private final PaymentClient paymentClient;
 
     public Integer createOrder( OrderRequest request) {
         // check the customer (openfeign)
@@ -49,7 +52,15 @@ public class OrderService {
             );
         }
 
-        // TODO start payment process
+        // start payment process
+        var paymentRequest = new PaymentRequest(
+                request.amount(),
+                request.paymentMathod(),
+                order.getId(),
+                order.getReference(),
+                customer
+        );
+        paymentClient.requestOrderPayment(paymentRequest);
 
         //send the order confirmation t- notification microservice (kafka)
         orderProducer.sendOrderConfirmation(
