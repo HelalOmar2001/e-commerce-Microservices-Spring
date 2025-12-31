@@ -29,7 +29,7 @@ public class Order {
     private String reference;
     private BigDecimal totalAmount;
     @Enumerated(STRING)
-    private PaymentMathod paymentMathod;
+    private PaymentMethod paymentMethod;
     private String customerId;
     @OneToMany(mappedBy = "order")
     private List<OrderLine> orderLines;

@@ -9,7 +9,7 @@ public class OrderMapper {
                 .id(request.id())
                 .reference(request.reference())
                 .totalAmount(request.amount())
-                .paymentMathod(request.paymentMathod())
+                .paymentMethod(request.paymentMethod())
                 .build();
     }
 
@@ -18,7 +18,7 @@ public class OrderMapper {
                 order.getId(),
                 order.getReference(),
                 order.getTotalAmount(),
-                order.getPaymentMathod(),
+                order.getPaymentMethod(),
                 order.getCustomerId()
         );
     }

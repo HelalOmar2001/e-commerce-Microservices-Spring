@@ -1,7 +1,7 @@
 
 package com.helal.ecommerce.order;
 
-public enum PaymentMathod {
+public enum PaymentMethod {
 
     PAYPAL,
     CREDIT_CARD,

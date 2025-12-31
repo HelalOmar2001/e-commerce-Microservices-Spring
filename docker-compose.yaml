@@ -53,7 +53,7 @@ services:
       ME_CONFIG_MONGODB_SERVER: mongodb
 
   zookeeper:
-    image: confluentinc/cp-zookeeper:latest
+    image: confluentinc/cp-zookeeper:7.7.7
     container_name: zookeeper
     environment:
       ZOOKEEPER_SERVER_ID: 1
@@ -65,7 +65,7 @@ services:
       - microservices-net
 
   Kafka:
-    image: confluentinc/cp-kafka:latest
+    image: confluentinc/cp-kafka:7.7.7
     container_name: ms_kafka
     ports:
       - 9092:9092
@@ -78,6 +78,14 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT, PLAINTEXT_HOST:PLAINTEXT
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+    networks:
+      - microservices-net
+
+  zipkin:
+    container_name: zipkin
+    image: openzipkin/zipkin
+    ports:
+      - 9411:9411
     networks:
       - microservices-net
 

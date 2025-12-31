@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ProductService {
 
-    private ProductRepository repository;
+    private final ProductRepository repository;
     private final ProductMapper mapper;
     public Integer createProduct( ProductRequest request) {
         var product = mapper.toProduct(request);

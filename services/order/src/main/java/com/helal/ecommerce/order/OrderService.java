@@ -55,7 +55,7 @@ public class OrderService {
         // start payment process
         var paymentRequest = new PaymentRequest(
                 request.amount(),
-                request.paymentMathod(),
+                request.paymentMethod(),
                 order.getId(),
                 order.getReference(),
                 customer
@@ -67,7 +67,7 @@ public class OrderService {
                 new OrderConfirmation(
                         request.reference(),
                         request.amount(),
-                        request.paymentMathod(),
+                        request.paymentMethod(),
                         customer,
                         purchasedProducts
                 )
